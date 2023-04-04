@@ -96,7 +96,7 @@ public class TrainService {
         return countOfPassengers;
     }
 
-    public Integer calculateOldestPersonTravelling(Integer trainId){
+    public Integer calculateOldestPersonTravelling(Integer trainId) throws Exception{
 
         //Throughout the journey of the train between any 2 stations
         //We need to find out the age of the oldest person that is travelling the train
@@ -116,6 +116,7 @@ public class TrainService {
                  maxAge=Math.max(maxAge,passengerAge);
              }
         }
+        if(maxAge == 0) throw new Exception("no person travelling");
         return maxAge;
     }
 
@@ -126,6 +127,7 @@ public class TrainService {
         //You can assume that the date change doesn't need to be done ie the travel will certainly happen with the same date (More details
         //in problem statement)
         //You can also assume the seconds and milli seconds value will be 0 in a LocalTime format.
+         List<Train> trainList=trainRepository.findAll();
 
         return null;
     }
