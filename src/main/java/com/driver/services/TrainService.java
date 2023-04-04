@@ -133,7 +133,6 @@ public class TrainService {
             for(Train train : trainList){
                 //finding route of perticular train
                 String[] route=train.getRoute().split(",");
-                boolean isTrainPassesStation = false;
 
                 int noOfStations =route.length-1 ;
 
@@ -141,8 +140,8 @@ public class TrainService {
                     if(currStation.equals(station.toString())){
                        LocalTime trainDepartureTime = train.getDepartureTime();
                        //assuming train destination time
-                       LocalTime trainDestinationTime = LocalTime.parse("23:59:59");
-
+                      // LocalTime trainDestinationTime = LocalTime.parse("23:59:59");
+                       LocalTime trainDestinationTime=trainDepartureTime.plusHours(noOfStations);
                        // comparing start time and end time
                         if(startTime.isAfter(trainDepartureTime) && endTime.isBefore(trainDestinationTime)){
                            trainListBetweenGivenTime.add(train.getTrainId());
