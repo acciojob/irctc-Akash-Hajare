@@ -127,9 +127,31 @@ public class TrainService {
         //You can assume that the date change doesn't need to be done ie the travel will certainly happen with the same date (More details
         //in problem statement)
         //You can also assume the seconds and milli seconds value will be 0 in a LocalTime format.
-         List<Train> trainList=trainRepository.findAll();
+        List<Integer> trainListBetweenGivenTime = new ArrayList<>();
 
-        return null;
+         List<Train> trainList=trainRepository.findAll();
+            for(Train train : trainList){
+                //finding route of perticular train
+                String[] route=train.getRoute().split(",");
+                boolean isTrainPassesStation = false;
+
+                int noOfStations =route.length-1 ;
+
+                for(String currStation : route ){
+                    if(currStation.equals(station.toString())){
+                       LocalTime trainDepartureTime = train.getDepartureTime();
+                       //assuming train destination time
+                       LocalTime trainDestinationTime = LocalTime.parse("23:59:59");
+
+                       // comparing start time and end time
+                        if(startTime.isAfter(trainDepartureTime) && endTime.isBefore(trainDestinationTime)){
+                           trainListBetweenGivenTime.add(train.getTrainId());
+                        }
+                    }
+                }
+
+            }
+        return trainListBetweenGivenTime;
     }
 
 }
